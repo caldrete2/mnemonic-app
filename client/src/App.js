@@ -1,24 +1,33 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react'
+import {BrowserRouter as Router,
+		Switch,
+		Route
+} from 'react-router-dom'
+import Navbar from './views/navbar/Navbar'
+import './App.css'
+import Contacts from './views/contact/Contacts'
 
+import History from './views/History'
+import OpenInvoice from './views/OpenInvoice'
+import Profile from './views/Profile'
+/*import EditContact from './views/contact/EditContact'
+import AddContact from './views/contact/AddContact'
+import CreateInvoice from './views/invoice/CreateInvoice'
+*/
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api/get/allcontacts")
-      .then((res) => res.json())
-	  .then((data) => console.log(data));
-  }, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<Router>
+				<Navbar />
+				<Switch>
+					<Route exact path='/' component={Contacts} />
+					<Route path='/openInvoice' component={OpenInvoice} />
+					<Route path='/history' component={History} />
+					<Route path='/profile' component={Profile} />
+				</Switch>
+			</Router>
+		</>
+	)
 }
 
-export default App;
+export default App
