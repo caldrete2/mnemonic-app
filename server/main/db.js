@@ -7,7 +7,7 @@ const pool = new Pool({
 	connectionString: connString,
 	ssl: { rejectUnauthorized: false }
 })
-/*
+
 function getAllContacts() {
 	return pool.query(
 			`SELECT  
@@ -22,11 +22,7 @@ function getAllContacts() {
 			ORDER BY u.name ASC`
 	)
 } 
-*/
 
-function getAllContacts() {
-	return pool.query(`SELECT * FROM users`)
-}
 
 module.exports = {
 		getAllContacts
