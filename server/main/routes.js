@@ -8,6 +8,15 @@ router.get('/api/get/allcontacts', (req, res) => {
 		.catch(err => console.error(err.stack))
 })
 
+router.post('/api/post/updatecontact', (req, res) => {
+	const u_values = [req.body.ukey, req.body.name,
+					 req.body.email, req.body.phone]
+
+	qry.updateContact(u_values)
+		.then(q_res => console.log(q_res.rows))
+		.catch(err => console.log(err.stack))	
+})
+
 router.get('/api', (req, res) => {
 	res.json({message: "Hello from my server!"});	
 })

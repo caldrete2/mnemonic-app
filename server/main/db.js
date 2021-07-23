@@ -23,7 +23,15 @@ function getAllContacts() {
 	)
 } 
 
+function updateContact(body) {
+	return pool.query(
+			`UPDATE users
+			SET name=$2, email=$3, phone=$4
+			WHERE user_id=$1`, body	
+		  )
+}
 
 module.exports = {
-		getAllContacts
+		getAllContacts,
+		updateContact
 }
