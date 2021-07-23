@@ -11,10 +11,18 @@ router.get('/api/get/allcontacts', (req, res) => {
 router.post('/api/post/updatecontact', (req, res) => {
 	const u_values = [req.body.ukey, req.body.name,
 					 req.body.email, req.body.phone]
-
+	
+	const a_values = [req.body.akey, req.body.street,
+					 req.body.city, req.body.state,
+					 req.body.zip]
+	
 	qry.updateContact(u_values)
-		.then(q_res => console.log(q_res.rows))
-		.catch(err => console.log(err.stack))	
+		.then(qry.updateAddress(a_values)
+				 .then(q_res => console.log(q_res))
+				 .catch(err => console.log(err.stack))
+		)
+		.catch(q_err => console.log(q_err.stack))
+		
 })
 
 router.get('/api', (req, res) => {

@@ -31,7 +31,16 @@ function updateContact(body) {
 		  )
 }
 
+function updateAddress(body) {
+	return pool.query(
+			`UPDATE addr
+			SET street=$2, city=$3, zipcode=$5, state=$4
+			WHERE addr_id=$1`, body	
+		  )
+}
+
 module.exports = {
 		getAllContacts,
-		updateContact
+		updateContact,
+		updateAddress
 }
