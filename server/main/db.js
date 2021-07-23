@@ -17,7 +17,7 @@ function getAllContacts() {
 				a.city,
 				a.state,
 				a.zipcode
-			FROM users AS u JOIN addr AS a
+			FROM users AS u LEFT JOIN addr AS a
 			ON u.user_id=a.user_id
 			ORDER BY u.name ASC`
 	)
