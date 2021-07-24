@@ -28,7 +28,7 @@ function updateContact(body) {
 			`UPDATE users
 			SET name=$2, email=$3, phone=$4
 			WHERE user_id=$1`, body	
-		  )
+	)
 }
 
 function updateAddress(body) {
@@ -36,11 +36,27 @@ function updateAddress(body) {
 			`UPDATE addr
 			SET street=$2, city=$3, zipcode=$5, state=$4
 			WHERE addr_id=$1`, body	
-		  )
+	)
+}
+
+function deleteUser(key) {
+	return pool.query(
+			`DELETE FROM users
+			WHERE user_id='${key}'`
+	)
+}
+
+function deleteAddr(key) {
+	return pool.query(
+			`DELETE FROM addr
+			WHERE user_id='${key}'`
+	)
 }
 
 module.exports = {
 		getAllContacts,
 		updateContact,
-		updateAddress
+		updateAddress,
+		deleteUser,
+		deleteAddr
 }

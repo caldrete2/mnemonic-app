@@ -25,8 +25,15 @@ router.post('/api/post/updatecontact', (req, res) => {
 		
 })
 
-router.get('/api', (req, res) => {
-	res.json({message: "Hello from my server!"});	
+router.delete('/api/delete/contact', (req, res) => {
+	const key = req.query.key
+
+	qry.deleteAddr(key)
+		.then(qry.deleteUser(key)
+				 .then(q_res => console.log(q_res))
+				 .catch(e => console.log(e.stack))
+		)
+		.catch(err => console.log(err.stack))	
 })
 
 module.exports = router;

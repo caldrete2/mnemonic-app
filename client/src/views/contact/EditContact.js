@@ -47,6 +47,7 @@ class EditContact extends Component {
 		axios.delete('api/delete/contact', {params: {key: ukey}})
 			.then(res => console.log(res, ukey))
 			.catch((err) => console.log(err))
+		this.props.history.push('/')
 	}
 
 	render() {
