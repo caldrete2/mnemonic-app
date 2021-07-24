@@ -11,17 +11,10 @@ import './Contacts.css'
 class Contacts extends Component {
 	constructor() {
 		super()
-		this.state = {
-			data: [],
-			isLoading: false
-		}
-	}
+		this.state = { data: [] }
 
-	componentDidMount() {
-		this.setState({isLoading: true})
 		axios.get('api/get/allcontacts')
 			.then(res => this.setState({data: res.data}))
-		this.setState({isLoading: false})
 	}
 
 	render() {
