@@ -36,4 +36,19 @@ router.delete('/api/delete/contact', (req, res) => {
 		.catch(err => console.log(err.stack))	
 })
 
+router.post('/api/post/newcontact', (req, res) => {
+	const u_values = [req.body.name, req.body.email, req.body.phone]
+
+	qry.newContact(u_values)
+		.then(res => {
+			const a_values = [res.rows[0].user_id, req.body.street,
+							 req.body.city, req.body.state, req.body.zipcode]
+							 	
+			qry.newAddr(a_values)
+				 .then(q_res => console.log(q_res))
+				 .catch(e => console.log(e.stack))
+		})
+		.catch(err => console.log(err.stack))	
+})
+
 module.exports = router;

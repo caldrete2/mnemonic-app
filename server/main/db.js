@@ -53,10 +53,26 @@ function deleteAddr(key) {
 	)
 }
 
+function newContact(body) {
+	return pool.query(
+		`INSERT INTO users(name, email, phone)
+		VALUES($1, $2, $3) RETURNING user_id`, body
+	)
+}
+
+function newAddr(body) {
+	return pool.query(
+		`INSERT INTO addr(user_id, street, city, state, zipcode)
+		VALUES($1, $2, $3, $4, $5)`, body
+	)
+}
+
 module.exports = {
 		getAllContacts,
 		updateContact,
 		updateAddress,
 		deleteUser,
-		deleteAddr
+		deleteAddr,
+		newContact,
+		newAddr
 }
