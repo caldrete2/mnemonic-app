@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import ReactTimeout from 'react-timeout'
 
 class EditContact extends Component {
 	constructor() {
@@ -31,6 +32,10 @@ class EditContact extends Component {
 		})
 	}
 
+	toggle = () => {
+		this.props.history.push('/')
+	}
+
 	handleSubmit(event) {
 		event.preventDefault()
 		const {data} = this.state
@@ -38,7 +43,7 @@ class EditContact extends Component {
 		axios.post('api/post/updatecontact', data)
 			.then(res => console.log(res, data)) 
 			.catch((err) => console.log(err))
-		this.props.history.push('/')	
+		this.props.setTimeout(this.toggle, 5000)
 	}
 
 	handleDelete(event) {
@@ -47,7 +52,7 @@ class EditContact extends Component {
 		axios.delete('api/delete/contact', {params: {key: ukey}})
 			.then(res => console.log(res, ukey))
 			.catch((err) => console.log(err))
-		this.props.history.push('/')
+		this.props.setTimeout(this.toggle, 5000)
 	}
 
 	render() {
@@ -84,4 +89,4 @@ class EditContact extends Component {
 	}
 }
 
-export default EditContact
+export default ReactTimeout(EditContact)

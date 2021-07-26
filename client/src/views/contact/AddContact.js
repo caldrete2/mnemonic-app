@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import ReactTimeout from 'react-timeout'
 
 class AddContact extends Component {
 	constructor() {
@@ -23,13 +24,17 @@ class AddContact extends Component {
 		this.setState({ [name]: value })
 	}
 
+	toggle = () => {
+		this.props.history.push('/')
+	}
+
 	handleSubmit(event) {
 		event.preventDefault()
 		const data = this.state
 		axios.post('/api/post/newcontact', data)
 			.then(res => console.log(res.data))
 			.catch((err) => console.log(err))
-		this.props.history.push('/')
+		this.props.setTimeout(this.toggle, 5000)
 	}
 
 	render() {
@@ -62,4 +67,4 @@ class AddContact extends Component {
 	}
 }
 
-export default AddContact 
+export default ReactTimeout(AddContact)

@@ -12,7 +12,9 @@ class Contacts extends Component {
 	constructor() {
 		super()
 		this.state = { data: [] }
+	}
 
+	componentDidMount() {
 		axios.get('api/get/allcontacts')
 			.then(res => this.setState({data: res.data}))
 	}
