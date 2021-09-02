@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import LeftContainer from './leftcontainer/InvoiceLeftContainer'
-//import RightContainer from './rightcontainer/InvoiceRightContainer'
+import RightContainer from './rightcontainer/InvoiceRightContainer'
 import './CreateInvoice.css'
 import axios from 'axios'
 
@@ -87,6 +87,11 @@ class CreateInvoice extends Component {
 					handleChange={this.handleChange}
 					detailClick={this.buttonClick}
 					handleSubmit={this.handleSubmit}
+				/>
+				<RightContainer
+					user={this.props.location.state}
+					state={this.state}
+					handleDelete={this.handleDelete} 
 				/>				
 			</div>
 		)
