@@ -67,6 +67,29 @@ function newAddr(body) {
 	)
 }
 
+function createInvoice(body) {
+	return pool.query(
+		`INSERT INTO invoice(user_id, created_date, due_date, 
+			labor_cost, total_due)
+		VALUES($1, NOW(), NOW() + INTERVAL '14 DAYS', $2, $3) 
+		RETURNING invoice_id`, body	
+	)
+}
+
+function postDetails(body) {
+	return pool.query(
+		`INSERT INTO details(invoice_id, descr, rate, qty) 
+		VALUES($1, $2, $3, $4)`, body
+	)
+}
+
+function postMaterials(body) {
+	return pool.query(
+		`INSERT INTO materials(invoice_id, item, cost, count) 
+		VALUES($1, $2, $3, $4)`, body
+	)
+}
+
 module.exports = {
 		getAllContacts,
 		updateContact,
@@ -74,5 +97,8 @@ module.exports = {
 		deleteUser,
 		deleteAddr,
 		newContact,
-		newAddr
+		newAddr, 
+		createInvoice, 
+		postDetails,
+		postMaterials
 }

@@ -53,4 +53,24 @@ router.post('/api/post/newcontact', (req, res) => {
 		.catch(err => console.log(err.stack))	
 })
 
+router.post('/api/post/invoice', (req, res) => {
+	const invoice_values = [req.body.user_id, req.body.labor, 1000.00]
+
+	qry.createInvoice(invoice_values)
+		.then(res => { return res.rows[0].invoice_id })
+		.then(key => {
+			req.body.details.map(e => {
+				const detail_values = [key, e.desc, e.rate, e.qty]		
+				qry.postDetails(detail_values)
+					.catch(e => console.error(e.stack))
+			})
+
+			req.body.materials.map(e => {
+				const material_values = [key, e.item, e.cost, e.count]
+				qry.postMaterials(material_values)
+					.catch(e => console.error(e.stack))				
+				})
+		})
+})
+
 module.exports = router;
