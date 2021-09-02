@@ -17,9 +17,10 @@ router.post('/api/post/updatecontact', (req, res) => {
 					 req.body.zip]
 	
 	qry.updateContact(u_values)
-		.then(qry.updateAddress(a_values)
-				 .then(q_res => console.log(q_res))
-				 .catch(err => console.log(err.stack))
+		.then(
+			qry.updateAddress(a_values)
+				.then(q_res => console.log(q_res))
+				.catch(err => console.log(err.stack))
 		)
 		.catch(q_err => console.log(q_err.stack))
 		
@@ -29,9 +30,10 @@ router.delete('/api/delete/contact', (req, res) => {
 	const key = req.query.key
 
 	qry.deleteAddr(key)
-		.then(qry.deleteUser(key)
-				 .then(q_res => console.log(q_res))
-				 .catch(e => console.log(e.stack))
+		.then(
+			qry.deleteUser(key)
+				.then(q_res => console.log(q_res))
+				.catch(e => console.log(e.stack))
 		)
 		.catch(err => console.log(err.stack))	
 })
@@ -40,12 +42,12 @@ router.post('/api/post/newcontact', (req, res) => {
 	const u_values = [req.body.name, req.body.email, req.body.phone]
 
 	qry.newContact(u_values)
-		.then(res => {
-			const a_values = [res.rows[0].user_id, req.body.street,
-							 req.body.city, req.body.state, req.body.zipcode]
+		.then(res => { return res.rows[0].user_id })
+		.then(key => {
+			const a_values = [key, req.body.street, req.body.city, 
+							 req.body.state, req.body.zipcode]
 							 	
 			qry.newAddr(a_values)
-				 .then(q_res => console.log(q_res))
 				 .catch(e => console.log(e.stack))
 		})
 		.catch(err => console.log(err.stack))	
