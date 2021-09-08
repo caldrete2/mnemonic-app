@@ -26,7 +26,7 @@ class CreateInvoice extends Component {
 		this.handleDelete = this.handleDelete.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
-	
+
 	handleSubmit(event) {
 		event.preventDefault()
 		const {details, materials, unit, po, labor} = this.state
@@ -43,6 +43,7 @@ class CreateInvoice extends Component {
 		axios.post('/api/post/invoice', data)
 			.then(res => console.log(res))
 			.catch((err) => console.log(err))
+			.finally(this.props.history.push('/'))
 	}
 
 	handleDelete(elem, a) {
