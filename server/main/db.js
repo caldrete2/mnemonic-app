@@ -69,9 +69,9 @@ function newAddr(body) {
 
 function createInvoice(body) {
 	return pool.query(
-		`INSERT INTO invoice(user_id, created_date, due_date, 
-			labor_cost, total_due)
-		VALUES($1, NOW(), NOW() + INTERVAL '14 DAYS', $2, $3) 
+		`INSERT INTO invoice(user_id, unit, po, created_date, 
+			due_date, labor_cost, total_due)
+		VALUES($1, $2, $3, NOW(), NOW() + INTERVAL '14 DAYS', $4, $5) 
 		RETURNING invoice_id`, body	
 	)
 }
