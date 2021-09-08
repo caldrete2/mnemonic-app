@@ -43,7 +43,7 @@ class EditContact extends Component {
 		axios.post('api/post/updatecontact', data)
 			.then(res => console.log(res, data)) 
 			.catch((err) => console.log(err))
-		this.props.setTimeout(this.toggle, 5000)
+		this.props.setTimeout(this.toggle, 3000)
 	}
 
 	handleDelete(event) {
@@ -52,7 +52,7 @@ class EditContact extends Component {
 		axios.delete('api/delete/contact', {params: {key: ukey}})
 			.then(res => console.log(res, ukey))
 			.catch((err) => console.log(err))
-		this.props.setTimeout(this.toggle, 5000)
+		this.props.setTimeout(this.toggle, 3000)
 	}
 
 	render() {
