@@ -54,7 +54,8 @@ router.post('/api/post/newcontact', (req, res) => {
 })
 
 router.post('/api/post/invoice', (req, res) => {
-	const invoice_values = [req.body.user_id, req.body.labor, 1000.00]
+	const invoice_values = [req.body.user_id, req.body.unit,
+							req.body.po, req.body.labor, 1000.00]
 
 	qry.createInvoice(invoice_values)
 		.then(res => { return res.rows[0].invoice_id })
