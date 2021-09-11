@@ -17,17 +17,17 @@ function createInvoice(body) {
     )
 }
 
-function postDetails(body) {
+function postDetails(id, body) {
     return pool.query(
         `INSERT INTO details(invoice_id, descr, rate, qty)
-        VALUES($1, $2, $3, $4)`, body
+        VALUES('${id}', $1, $2, $3)`, body
     )
 }
 
-function postMaterials(body) {
+function postMaterials(id, body) {
     return pool.query(
         `INSERT INTO materials(invoice_id, item, cost, count)
-        VALUES($1, $2, $3, $4)`, body
+        VALUES('${id}', $1, $2, $3)`, body
     )
 }
 
