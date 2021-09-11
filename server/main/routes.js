@@ -24,17 +24,8 @@ router.delete('/api/delete/contact', (req, res) => {
 })
 
 router.post('/api/post/newcontact', (req, res) => {
-	const u_values = [req.body.name, req.body.email, req.body.phone]
-
-	user_qry.newContact(u_values)
-		.then(res => { return res.rows[0].user_id })
-		.then(key => {
-			const a_values = [key, req.body.street, req.body.city, 
-							 req.body.state, req.body.zipcode]
-							 	
-			user_qry.newAddress(a_values)
-				 .catch(e => console.log(e.stack))
-		})
+	user_ctrl.newContact(req.body)
+		.then(res => console.log(res))
 		.catch(err => console.log(err.stack))	
 })
 
