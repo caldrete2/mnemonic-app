@@ -38,8 +38,24 @@ async function deleteContact(key) {
 	return [a_res, u_res]
 }
 
+async function newContact(body) {
+	const u_values = [body.name, body.email, body.phone]
+	const a_values = [body.street, body.city,
+                      body.state, body.zipcode]
+
+    const key = await user.newContact(u_values)
+        .then(res => { return res.rows[0].user_id })
+    	.catch(e => console.log(e.stack))
+
+	const result = user.newAddress(key, a_values)
+        .catch(e => console.log(e.stack))
+		
+	return await result;
+}
+
 module.exports = {
 	getAllContacts,
 	updateContact,
-	deleteContact
+	deleteContact,
+	newContact
 }
