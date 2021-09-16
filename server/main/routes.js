@@ -5,9 +5,9 @@ const invoice_ctrl = require('./controllers/invoice_controller');
 
 router.get('/api/get/allcontacts', async (req, res) => {
 	const result = await user_ctrl.getAllContacts()
-						.then(res => {return res})
+						.then(res => { return res })
 						.catch(e => console.log(e))
-	res.json(result)
+	res.json(result);
 })
 
 router.post('/api/post/updatecontact', (req, res) => {
@@ -32,6 +32,20 @@ router.post('/api/post/invoice', (req, res) => {
 	invoice_ctrl.createInvoice(req.body)
 		.then(res => console.log(res))
 		.catch(e => console.log(e.stack))
+})
+
+router.get('/api/get/activeinvoice', async (req, res) => {
+	const data = await invoice_ctrl.activeInvoice()
+		.then(res => { return res })
+		.catch(e => console.log(e.stack))	
+	res.json(data)
+})
+
+router.get('/api/get/displayinvoice', async (req, res) => {
+	const data = await invoice_ctrl.invoiceDisplay(req.query.id)
+		.then(res => {return res })
+		.catch(e => console.error(e.stack))
+	res.json(data)	
 })
 
 module.exports = router;

@@ -31,8 +31,37 @@ function postMaterials(id, body) {
     )
 }
 
+function activeInvoice() {
+	return pool.query(
+		`SELECT * FROM invoice AS i
+		JOIN users AS u
+		ON i.user_id=u.user_id
+		JOIN addr AS a
+		ON a.user_id=u.user_id
+		WHERE due_date > NOW()
+		ORDER BY i.due_date ASC;`
+	)
+}
+
+function getDetails(id) {
+	return pool.query(
+		`SELECT * FROM details
+		WHERE invoice_id='${id}'`
+	)
+}
+
+function getMaterials(id) {
+	return pool.query(
+		`SELECT * FROM materials
+		WHERE invoice_id='${id}'`
+	)
+}
+
 module.exports = {
 	createInvoice,
 	postDetails,
-	postMaterials
+	postMaterials,
+	activeInvoice,
+	getDetails,
+	getMaterials
 }
