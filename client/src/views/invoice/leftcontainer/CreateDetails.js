@@ -2,16 +2,16 @@ import React from 'react'
 
 function CreateDetails(props) {
 	const {handleChange, detailClick} = props
-	const {desc, rate, qty} = props.state
+	const {descr, rate, qty} = props.state
 
 	return(
 		<main>
 			<form>
 				<label>Description</label><br/>
 				<input
-					name='desc'
+					name='descr'
 					type='text'
-					value={desc}
+					value={descr}
 					onChange={handleChange}
 				/><br/>
 				<label>Rate</label><br/>

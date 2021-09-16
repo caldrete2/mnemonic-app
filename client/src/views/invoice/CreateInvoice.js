@@ -10,7 +10,7 @@ class CreateInvoice extends Component {
 		this.state = {
 			unit: '',
 			po: '',
-			desc: '',
+			descr: '',
 			rate: '',
 			qty: '',
 			item: '',
@@ -66,14 +66,14 @@ class CreateInvoice extends Component {
 
 	buttonClick(event) {
 		event.preventDefault()
-		const {desc, rate, qty, details, cost, count, materials, item} = this.state
+		const {descr, rate, qty, details, cost, count, materials, item} = this.state
 		const {name} = event.target
-		const dObj = {desc, rate, qty, total: '0.00'}
+		const dObj = {descr, rate, qty, total: '0.00'}
 		const mObj = {item, cost, count, total: '0.00'}	
 
 		if(name === 'detail-button') {
 			let temp = details.concat(dObj)
-			this.setState({ details: temp, desc: '', qty: '', rate: ''  })
+			this.setState({ details: temp, descr: '', qty: '', rate: ''  })
 		} else {
 			let temp = materials.concat(mObj)
 			this.setState({ materials: temp, count: '', cost: '', item: '' })

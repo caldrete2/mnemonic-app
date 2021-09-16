@@ -4,17 +4,23 @@ import './DetailsDisplay.css'
 
 function DetailsDisplay(props) {
 	const {data, handleDelete} = props
-	
-	const detailList = data.map((elem, i) => {
+
+	const detailList = data.map((elem, i) => {		
+		const icon = handleDelete? 	
+			<FaIcons.FaTrash 
+				onClick={() => handleDelete(elem, 'details')}
+			/> : 
+			<></>
+
+		const total = Math.round(elem.qty * elem.rate).toFixed(2)
+
 		return(
 			<tr key={i}>
-				<td>{elem.desc}</td>
+				<td>{elem.descr}</td>
 				<td>{elem.rate}</td>
 				<td>{elem.qty}</td>
-				<td>{elem.total}</td>
-				<td><FaIcons.FaTrash 
-						onClick={()=> handleDelete(elem, 'details')}
-					/></td>
+				<td>{total}</td>
+				<td>{icon}</td>
 			</tr>
 		)
 	})
