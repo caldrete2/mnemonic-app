@@ -22,15 +22,20 @@ function Navbar() {
 		)	
 	})
 
+	const showSidebar = event => {
+		event.preventDefault()
+		setSidebar(!sidebar)	
+	}
+
 	return (
 		<>
 		<IconContext.Provider value={{color: '#fff'}}>
 			<div className='navbar'>
 				<Link to='#' className='menu-bars'>
-					<FaIcons.FaBars onClick={() => setSidebar(!sidebar)} />
+					<FaIcons.FaBars onClick={showSidebar} />
 				</Link>
 				<nav className={sidebar? 'nav-menu active' : 'nav-menu'}>
-					<ul className='nav-menu-items' onClick={() => setSidebar(!sidebar)}>
+					<ul className='nav-menu-items' onClick={showSidebar}>
 						<li className='navbartoggle'>	
 							<Link to='#' className='menu-bars'>
 								<AiIcons.AiOutlineClose />
