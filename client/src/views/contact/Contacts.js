@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 import * as MdIcons from 'react-icons/md'
@@ -8,72 +8,62 @@ import * as SiIcons from 'react-icons/si'
 import * as ImIcons from 'react-icons/im'
 import './Contacts.css'
 
-class Contacts extends Component {
-	constructor() {
-		super()
-		this.state = { data: [] }
-	}
+function Contacts() {
+	const [data, setData] = useState(null);
 
-	componentDidMount() {
+	useEffect(() => {
 		axios.get('api/get/allcontacts')
-			.then(res => this.setState({data: res.data}))
-	}
+			.then(res => setData(res.data))
+	}, []);
 
-	render() {
-		const {data} = this.state
-		const contactList = data.map((elem, i)=> {
-			return(
-				<div 
-					key={i} 
-					className='contact'
-				>	
-					<div className='contact-action'>
-						
-						<Link to={{
-							pathname: '/createInvoice',
-							state: elem	
-						}}>
-							<FaIcons.FaFileInvoice/>
-						</Link>
-						<Link to={{
-							pathname: '/editContact',
-							state: {
-									ukey: elem.user_id,
-									akey: elem.addr_id,
-									name: elem.name,
-									email: elem.email,
-									phone: elem.phone,
-									street: elem.street,
-									state: elem.state,
-									zip: elem.zipcode
-							}
-						}}>
-							<MdIcons.MdEdit/> 
-						</Link>
-					</div>
-					<div>
-						<h4 className='contact-name'>
-							<IoIcons.IoIosContact/>{elem.name}</h4>
-						<p className='contact-email'>
-							<SiIcons.SiMailDotRu/>{elem.email}</p> 
-						<p className='contact-phone'>
-							<MdIcons.MdPhoneAndroid/>{elem.phone}</p>
-						<p className='contact-street'>
-							<ImIcons.ImHome3/>{elem.street}</p>
-					</div>
+	{/* Creating contact list from API data*/}
+	const contactList = data? data.map((elem, i)=> {
+		return(
+			<div key={i} className='contact'>	
+				<div className='contact-action'>
+					{/*Icon to create invoice for specific user*/}
+					<Link to={{
+						pathname: '/createInvoice',
+						state: elem	
+					}}>
+						<FaIcons.FaFileInvoice/>
+					</Link>
+					
+					{/*
+					Icon to edit contact
+					Modify EditContact to accept whole elem
+					*/}
+					<Link to={{
+						pathname: '/editContact',
+						state: elem
+					}}>
+						<MdIcons.MdEdit/> 
+					</Link>
 				</div>
-			)	
-		})
 
-		return (
-			<div className='contacts'>
-				{contactList}
-				<Link to='/addContact'>
-					<button>ADD</button>
-				</Link>									
+				{/*User Information*/}
+				<div>
+					<h4 className='contact-name'>
+						<IoIcons.IoIosContact/>{elem.name}</h4>
+					<p className='contact-email'>
+						<SiIcons.SiMailDotRu/>{elem.email}</p> 
+					<p className='contact-phone'>
+						<MdIcons.MdPhoneAndroid/>{elem.phone}</p>
+					<p className='contact-street'>
+						<ImIcons.ImHome3/>{elem.street}</p>
+				</div>
 			</div>
-		)
-	}
+		)	
+	}) : 'No Contacts'
+
+	return (
+		<div className='contacts'>
+			{contactList} <br/>
+			<Link to='/addContact'>
+				<button>ADD</button>
+			</Link>									
+		</div>
+	)
 }
 
 export default Contacts
