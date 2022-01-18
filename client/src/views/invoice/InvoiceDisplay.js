@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import User from './rightcontainer/UserDisplay'
-import Details from './rightcontainer/DetailsDisplay'
-import Materials from './rightcontainer/MaterialsDisplay'
+import User from './UserDisplay'
+import Details from './DetailsDisplay'
 import axios from 'axios'
 
 class InvoiceDisplay extends Component {
@@ -39,10 +38,6 @@ class InvoiceDisplay extends Component {
 			<Details data={data[0]} /> : 
 			<h2> Details Loading ... </h2>  
 		
-		const materials = data.length > 0? 
-			<Materials data={data[1]}/> :
-			<h2>Materials Loading...</h2>
-
 		if(isLoading) {
 			return <h1>Page Loading...</h1>
 		}
@@ -56,7 +51,6 @@ class InvoiceDisplay extends Component {
 						po={po}
 					/>
 					{details}
-					{materials}
 					<div>
 						<h3>
 							Labor: ${Math.round(labor_cost).toFixed(2)}
