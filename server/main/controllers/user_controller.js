@@ -10,7 +10,7 @@ async function getAllContacts() {
 
 async function updateContact(body) {
 	const u_values = [body.ukey, body.name, body.email, body.phone]
-	const a_values = [body.street, body.city, body.state, body.zip]
+	const a_values = [body.street, body.city, body.state, body.zipcode]
 
 	const u_res = user.updateContact(u_values)
 		.catch(err => console.log(err.stack))
