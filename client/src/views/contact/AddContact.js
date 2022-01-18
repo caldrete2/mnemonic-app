@@ -1,70 +1,38 @@
-import React, {Component} from 'react'
+import React from 'react'
+import useForm from '../../utils/useForm'
+import { contactformContext } from '../../Context'
+import ContactForm from './ContactForm'
+import AddrForm from './AddrForm'
 import axios from 'axios'
 import ReactTimeout from 'react-timeout'
 
-class AddContact extends Component {
-	constructor() {
-		super()
-		this.state = {
-			name: '',
-			email: '',
-			phone: '',
-			street:'',
-			city: '',
-			zipcode: '',
-			state: ''	
-		}
+const AddContact = props => {
+	const [values, handleChange] = useForm();
 
-		this.handleChange = this.handleChange.bind(this)
-		this.handleSubmit = this.handleSubmit.bind(this)
+	const toggle = () => {
+		props.history.push('/')
 	}
 
-	handleChange(event) {
-		const {name, value} = event.target
-		this.setState({ [name]: value })
-	}
-
-	toggle = () => {
-		this.props.history.push('/')
-	}
-
-	handleSubmit(event) {
-		event.preventDefault()
-		const data = this.state
-		axios.post('/api/post/newcontact', data)
+	const handleSubmit = e => {
+		e.preventDefault()
+		axios.post('/api/post/newcontact', values)
 			.then(res => console.log(res.data))
 			.catch((err) => console.log(err))
-		this.props.setTimeout(this.toggle, 5000)
+		props.setTimeout(toggle, 5000)
+		
 	}
 
-	render() {
-		const keys = Object.entries(this.state)
-		const contactForm = keys.map((elem, i) => {
-			return (
-				<div key={i}>
-					<input
-						type='text'
-						name={elem[0]}
-						value={elem[1]}
-						onChange={this.handleChange}
-						placeholder={elem[0]}
-					/><br />
-				</div>
-			)		
-		})
-
-		return (
-			<main>
-				<form>
-					{contactForm}	
+	return (
+		<main>
+			<contactformContext.Provider value={{values, handleChange}}>
+				<form onSubmit={handleSubmit}>
+					<ContactForm /><br/>
+					<AddrForm /><br/>
+					<input type='submit'/>
 				</form>
-				<button 
-					type='submit'
-					onClick={this.handleSubmit}
-				>Done</button>
-			</main>
-		)
-	}
+			</contactformContext.Provider>
+		</main>
+	)
 }
 
 export default ReactTimeout(AddContact)

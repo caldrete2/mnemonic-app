@@ -16,12 +16,10 @@ function Contacts() {
 			.then(res => setData(res.data))
 	}, []);
 
-	{/* Creating contact list from API data*/}
 	const contactList = data? data.map((elem, i)=> {
 		return(
 			<div key={i} className='contact'>	
 				<div className='contact-action'>
-					{/*Icon to create invoice for specific user*/}
 					<Link to={{
 						pathname: '/createInvoice',
 						state: elem	
@@ -29,10 +27,6 @@ function Contacts() {
 						<FaIcons.FaFileInvoice/>
 					</Link>
 					
-					{/*
-					Icon to edit contact
-					Modify EditContact to accept whole elem
-					*/}
 					<Link to={{
 						pathname: '/editContact',
 						state: elem
@@ -40,8 +34,6 @@ function Contacts() {
 						<MdIcons.MdEdit/> 
 					</Link>
 				</div>
-
-				{/*User Information*/}
 				<div>
 					<h4 className='contact-name'>
 						<IoIcons.IoIosContact/>{elem.name}</h4>
@@ -54,7 +46,7 @@ function Contacts() {
 				</div>
 			</div>
 		)	
-	}) : 'No Contacts'
+	}) : 'Loading Contacts...'
 
 	return (
 		<div className='contacts'>
