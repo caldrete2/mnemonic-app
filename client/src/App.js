@@ -13,6 +13,7 @@ import EditContact from './views/contact/EditContact'
 import AddContact from './views/contact/AddContact'
 import CreateInvoice from './views/invoice/CreateInvoice'
 import InvoiceDisplay from './views/invoice/InvoiceDisplay'
+import Register from './views/signin/Register'
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 					<Route path='/addContact' component={AddContact} />
 					<Route path='/createInvoice' component={CreateInvoice} />
 					<Route path='/invoiceDisplay' component={InvoiceDisplay} />
+					<Route path='/register' component={Register} />
 				</Switch>
 			</Router>
 		</>
