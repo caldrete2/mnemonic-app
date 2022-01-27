@@ -1,7 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const auth_ctrl = require('./controllers/auth_controller');
 const user_ctrl = require('./controllers/user_controller');
 const invoice_ctrl = require('./controllers/invoice_controller');
+
+router.post('/api/post/register', (req, res) => {
+	console.log('Register')
+	auth_ctrl.register(req.body)
+		.then(res => console.log(res))
+		.catch(err => console.log(err.stack))
+})
 
 router.get('/api/get/allcontacts', async (req, res) => {
 	const result = await user_ctrl.getAllContacts()
