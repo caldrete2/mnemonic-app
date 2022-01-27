@@ -21,7 +21,7 @@ const ContactForm = () => {
 				onChange={handleChange}
 			/><br/>
 			<input 
-				type='email'
+				type='text'
 				name='email'
 				placeholder={email}
 				value={values.email}

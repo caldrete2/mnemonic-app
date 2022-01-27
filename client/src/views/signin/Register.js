@@ -19,14 +19,15 @@ const Register = () => {
 		setValid, setFocus,
 		handleChange
 	] = useReg()
-	
-	console.log(creds)
 
 	const {user, pwd, match} = creds
 
 	const handleSubmit = e => {
 		e.preventDefault()
-		console.log('clicked')
+		
+		axios.post('/api/post/register', {user, pwd})
+			.then(res => console.log(res))
+			.catch((err) => console.log(err))
 	}
 
 	useEffect(() => {userRef.current.focus()}, [])
