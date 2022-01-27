@@ -1,5 +1,12 @@
+CREATE TABLE "creds" (
+	"cred_id" SERIAL PRIMARY KEY,
+	"username" varchar UNIQUE,
+	"password" varchar
+);
+
 CREATE TABLE "users" (
   "user_id" SERIAL PRIMARY KEY,
+  "cred_id" int REFERENCES creds(cred_id),
   "name" varchar UNIQUE,
   "phone" varchar,
   "email" varchar
@@ -29,12 +36,4 @@ CREATE TABLE "details" (
 	"descr" varchar,
 	"rate" float,
 	"qty" int
-);
-
-CREATE TABLE "materials" (
-  "material_id" SERIAL PRIMARY KEY,
-  "invoice_id" int REFERENCES invoice(invoice_id),
-  "item" varchar,
-  "count" int,
-  "cost" float
 );
